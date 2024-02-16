@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import { postgresToGraphql } from '../graphql/transform';
 // import { postgresToGraphql } from '../graphql/transform';
 import { Note } from '../migrations/00004-createTableNotes';
 import { sql } from './connect';
@@ -50,8 +51,7 @@ export const getNotes = cache(
         notes
         -- FIXME: Implement proper session token validation with INNER JOIN on sessions table
     `;
-    // return notes.map(postgresToGraphql);
-    return notes;
+    return notes.map(postgresToGraphql);
   },
 );
 

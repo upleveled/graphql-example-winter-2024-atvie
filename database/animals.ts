@@ -25,17 +25,16 @@ export const getAnimalInsecure = cache(async (id: number) => {
   return postgresToGraphql(animal);
 });
 
-export const createAnimal = cache(
-  async (insecureSessionToken: string, newAnimal: Omit<Animal, 'id'>) => {
-    // FIXME: Remove this early return when proper session token validation is implemented (see FIXME in query below)
-    if (
-      insecureSessionToken !==
-      'ae96c51f--fixme--insecure-hardcoded-session-token--5a3e491b4f'
-    ) {
-      return null;
-    }
+export const createAnimal = cache(async (newAnimal: Omit<Animal, 'id'>) => {
+  // FIXME: Remove this early return when proper session token validation is implemented (see FIXME in query below)
+  // if (
+  //   insecureSessionToken !==
+  //   'ae96c51f--fixme--insecure-hardcoded-session-token--5a3e491b4f'
+  // ) {
+  //   return null;
+  // }
 
-    const [animal] = await sql<Animal[]>`
+  const [animal] = await sql<Animal[]>`
       INSERT INTO
         animals (first_name, type, accessory)
         -- FIXME: Implement proper session token validation with INNER JOIN on sessions table
@@ -49,23 +48,22 @@ export const createAnimal = cache(
         animals.*
     `;
 
-    return postgresToGraphql(animal);
-  },
-);
+  return postgresToGraphql(animal);
+});
 
 export const updateAnimal = cache(
   async (
     // FIXME: Rename insecureSessionToken to sessionToken everywhere
-    insecureSessionToken: string,
+    // insecureSessionToken: string,
     updatedAnimal: Animal,
   ) => {
     // FIXME: Remove this early return when proper session token validation is implemented (see FIXME in query below)
-    if (
-      insecureSessionToken !==
-      'ae96c51f--fixme--insecure-hardcoded-session-token--5a3e491b4f'
-    ) {
-      return null;
-    }
+    // if (
+    //   insecureSessionToken !==
+    //   'ae96c51f--fixme--insecure-hardcoded-session-token--5a3e491b4f'
+    // ) {
+    //   return null;
+    // }
 
     const [animal] = await sql<Animal[]>`
       UPDATE animals
@@ -86,14 +84,14 @@ export const updateAnimal = cache(
 
 export const deleteAnimal = cache(
   // FIXME: Rename insecureSessionToken to sessionToken everywhere
-  async (insecureSessionToken: string, animalId: number) => {
+  async (animalId: number) => {
     // FIXME: Remove this early return when proper session token validation is implemented (see FIXME in query below)
-    if (
-      insecureSessionToken !==
-      'ae96c51f--fixme--insecure-hardcoded-session-token--5a3e491b4f'
-    ) {
-      return null;
-    }
+    // if (
+    //   insecureSessionToken !==
+    //   'ae96c51f--fixme--insecure-hardcoded-session-token--5a3e491b4f'
+    // ) {
+    //   return null;
+    // }
 
     const [animal] = await sql<Animal[]>`
       DELETE FROM animals

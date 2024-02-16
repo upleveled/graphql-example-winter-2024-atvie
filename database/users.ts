@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import { postgresToGraphql } from '../graphql/transform';
 // import { postgresToGraphql } from '../graphql/transform';
 import { User } from '../migrations/00002-createTableUsers';
 import { sql } from './connect';
@@ -24,7 +25,6 @@ export const getUser = cache(
         username = 'victor'
     `;
     console.log(insecureSessionToken);
-    // return postgresToGraphql(user);
-    return user;
+    return postgresToGraphql(user);
   },
 );
