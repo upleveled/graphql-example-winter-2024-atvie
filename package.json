@@ -1,0 +1,42 @@
+{
+  "name": "graphql-example-winter-2024-atvie",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "migrate": "ley --require tsx/cjs",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.9.5",
+    "@apollo/experimental-nextjs-app-support": "^0.8.0",
+    "@apollo/server": "^4.10.0",
+    "@as-integrations/next": "^3.0.0",
+    "@graphql-tools/schema": "^10.0.2",
+    "@upleveled/ley": "^0.8.5",
+    "dotenv-safe": "^9.0.0",
+    "graphql": "^16.8.1",
+    "next": "14.1.0",
+    "postgres": "^3.4.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "sass": "^1.71.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.33.2",
+    "tsx": "^4.7.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint-config-upleveled": "^7.8.0",
+    "prettier": "^3.2.5",
+    "stylelint": "^16.2.1",
+    "stylelint-config-upleveled": "^1.0.7",
+    "typescript": "^5"
+  }
+}
