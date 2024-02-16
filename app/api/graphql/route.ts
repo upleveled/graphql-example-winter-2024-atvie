@@ -12,6 +12,7 @@ import {
   getAnimalsInsecure,
   updateAnimal,
 } from '../../../database/animals';
+import { createNote } from '../../../database/notes';
 import { Resolvers } from '../../../graphql/graphqlGeneratedTypes';
 
 const typeDefs = gql`
@@ -25,6 +26,12 @@ const typeDefs = gql`
   type User {
     id: ID!
     username: String
+  }
+
+  type Note {
+    id: ID!
+    title: String
+    textContent: String
   }
 
   type Query {
@@ -45,6 +52,8 @@ const typeDefs = gql`
     ): Animal
 
     login(username: String!, password: String!): User
+
+    createNote(title: String!, textContent: String!): Note
   }
 `;
 
@@ -147,6 +156,27 @@ const resolvers: Resolvers = {
       );
 
       return null;
+    },
+
+    createNote: async (parent, args, context) => {
+      if (
+        typeof args.title !== 'string' ||
+        typeof args.textContent !== 'string' ||
+        !args.title ||
+        !args.textContent
+      ) {
+        throw new GraphQLError('Required field missing');
+      }
+
+      if (!context.insecureSessionTokenCookie) {
+        throw new GraphQLError('You must be logged in to create a note');
+      }
+
+      return await createNote(
+        context.insecureSessionTokenCookie.value,
+        args.title,
+        args.textContent,
+      );
     },
   },
 };
