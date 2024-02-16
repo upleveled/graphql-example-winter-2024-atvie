@@ -34,7 +34,6 @@ export default async function RootLayout({
             <Link href="/">Home</Link>
             <Link href="/animals">Animals</Link>
             <Link href="/animals/dashboard">Animal Dashboard</Link>
-            <Link href="/notes">Notes</Link>
           </div>
 
           <div>{user?.username}</div>
