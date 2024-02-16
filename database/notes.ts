@@ -29,8 +29,7 @@ export const createNote = cache(
         notes.*
     `;
 
-    // return postgresToGraphql(note);
-    return note;
+    return postgresToGraphql(note);
   },
 );
 
