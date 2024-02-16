@@ -4,7 +4,7 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { GraphQLError } from 'graphql';
 import { cookies } from 'next/headers';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import {
   createAnimal,
   deleteAnimal,
@@ -13,7 +13,13 @@ import {
   updateAnimal,
 } from '../../../database/animals';
 import { createNote } from '../../../database/notes';
-import { Resolvers } from '../../../graphql/graphqlGeneratedTypes';
+import { Animal, Resolvers } from '../../../graphql/graphqlGeneratedTypes';
+
+export type GraphqlResponseBody =
+  | {
+      animal: Animal;
+    }
+  | Error;
 
 const typeDefs = gql`
   type Animal {
@@ -202,10 +208,26 @@ const apolloServerRouteHandler = startServerAndCreateNextHandler<NextRequest>(
   },
 );
 
-export async function GET(req: NextRequest) {
-  return await apolloServerRouteHandler(req);
+// export async function GET(req: NextRequest) {
+//   return await apolloServerRouteHandler(req);
+// }
+
+// export async function POST(req: NextRequest) {
+//   return await apolloServerRouteHandler(req);
+// }
+
+export async function GET(
+  req: NextRequest,
+): Promise<NextResponse<GraphqlResponseBody>> {
+  return (await apolloServerRouteHandler(
+    req,
+  )) as NextResponse<GraphqlResponseBody>;
 }
 
-export async function POST(req: NextRequest) {
-  return await apolloServerRouteHandler(req);
+export async function POST(
+  req: NextRequest,
+): Promise<NextResponse<GraphqlResponseBody>> {
+  return (await apolloServerRouteHandler(
+    req,
+  )) as NextResponse<GraphqlResponseBody>;
 }

@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ErrorMessage from '../../../ErrorMessage';
+import { getSafeReturnToPath } from '../../../util/validation';
 
 // import { getSafeReturnToPath } from '../../../util/validation';
 
@@ -36,7 +37,7 @@ export default function LoginForm(props: Props) {
     },
 
     onCompleted: () => {
-      // router.push(getSafeReturnToPath(props.returnTo) || '/');
+      router.push(getSafeReturnToPath(props.returnTo) || '/');
       router.refresh();
     },
   });
