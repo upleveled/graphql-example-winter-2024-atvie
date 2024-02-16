@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
+    "build": "pnpm generate && next build",
+    "dev": "concurrently \"next dev\" \"pnpm generate --watch\"",
+    "generate": "graphql-codegen",
     "lint": "next lint",
     "migrate": "ley --require tsx/cjs",
     "start": "next start"
@@ -30,9 +31,14 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.4",
+    "@graphql-codegen/typescript-resolvers": "^4.0.4",
+    "@parcel/watcher": "^2.4.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "concurrently": "^8.2.2",
     "eslint-config-upleveled": "^7.8.0",
     "prettier": "^3.2.5",
     "stylelint": "^16.2.1",
